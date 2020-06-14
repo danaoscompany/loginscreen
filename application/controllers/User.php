@@ -2,6 +2,45 @@
 
 class User extends CI_Controller {
 
+	public function login() {
+		$phone = $this->input->post('phone');
+		$password = $this->input->post('password');
+		$expiry = $this->input->post('expiry');
+		$androidID = $this->input->post('android_id');
+		$users = $this->db->query("SELECT * FROM `user` WHERE `phone`='" . $phone . "' AND `password`='" . $password . "'")->result_array();
+		if (sizeof($users) > 0) {
+			$user = $users[0];
+			if ($user['android_id'] == NULL || $user['android_id'] == null || $user['android_id'] == '') {
+				$this->db->where('id', intval($user['id']));
+				$this->db->update('users', array(
+					'android_id' => $androidID
+				));
+				echo json_encode(array(
+					'response_code' => 1,
+					'user_id' => intval($user['id'])
+				));
+			} else {
+				if ($user['android_id'] != $androidID) {
+					echo json_encode(array(
+						'response_code' => -1
+					));
+				} else {
+					echo json_encode(array(
+						'response_code' => 1,
+						'user_id' => intval($user['id'])
+					));
+				}
+			}
+		} else {
+			$this->db->query("INSERT INTO `user` (`phone`, `password`, `android_id`, `expiry`) VALUES ('" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "')");
+			$userID = intval($this->db->insert_id());
+			echo json_encode(array(
+				'response_code' => 1,
+				'user_id' => $userID
+			));
+		}
+	}
+
 	public function login_with_google() {
 		$phone = $this->input->post('phone');
 		$googleID = $this->input->post('google_id');

@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'login.oprekmania.com',
 	'username' => 'oprekma1_appsusr',
 	'password' => 'Bismilah@2020##',
 	'database' => 'oprekma1_apps',

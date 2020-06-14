@@ -32,11 +32,8 @@ class User extends CI_Controller {
 				}
 			}
 		} else {
-			$this->db->query("INSERT INTO `user` (`phone`, `password`, `android_id`, `expiry`) VALUES ('" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "')");
-			$userID = intval($this->db->insert_id());
 			echo json_encode(array(
-				'response_code' => 1,
-				'user_id' => $userID
+				'response_code' => -2
 			));
 		}
 	}

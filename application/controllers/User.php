@@ -12,7 +12,7 @@ class User extends CI_Controller {
 			$user = $users[0];
 			if ($user['android_id'] == NULL || $user['android_id'] == null || $user['android_id'] == '') {
 				$this->db->where('id', intval($user['id']));
-				$this->db->update('users', array(
+				$this->db->update('user', array(
 					'android_id' => $androidID
 				));
 				echo json_encode(array(

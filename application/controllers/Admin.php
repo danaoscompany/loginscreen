@@ -3,15 +3,15 @@
 class Admin extends CI_Controller {
 
 	public function login() {
-		$phone = $this->input->post('phone');
+		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 		$expiry = $this->input->post('expiry');
-		$users = $this->db->query("SELECT * FROM `user` WHERE `phone`='" . $phone . "' AND `password`='" . $password . "'")->result_array();
-		if (sizeof($users) > 0) {
-			$user = $users[0];
+		$admins = $this->db->query("SELECT * FROM `admin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'")->result_array();
+		if (sizeof($admins) > 0) {
+			$admin = $admins[0];
 			echo json_encode(array(
 				'response_code' => 1,
-				'user_id' => intval($user['id'])
+				'user_id' => intval($admin['id'])
 			));
 		} else {
 			echo json_encode(array(

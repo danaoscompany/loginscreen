@@ -28,4 +28,13 @@ class Admin extends CI_Controller {
 		}
 		echo json_encode($users);
 	}
+
+	public function get_admins() {
+		$start = intval($this->input->post('start'));
+		$length = intval($this->input->post('length'));
+		$admins = $this->db->query("SELECT * FROM `admin` ORDER BY `first_name` ASC LIMIT " . $start . "," . $length)->result_array();
+		for ($i=0; $i<sizeof($admins); $i++) {
+		}
+		echo json_encode($admins);
+	}
 }

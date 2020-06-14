@@ -6,11 +6,7 @@ class Admin extends CI_Controller {
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 		$expiry = $this->input->post('expiry');
-		//echo "SELECT * FROM `admin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'";
-		//return;
 		$admins = $this->db->query("SELECT * FROM `admin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'")->result_array();
-		echo json_encode($admins);
-		return;
 		if (sizeof($admins) > 0) {
 			$admin = $admins[0];
 			echo json_encode(array(

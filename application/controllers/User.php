@@ -26,6 +26,8 @@ class User extends CI_Controller {
 					));
 				} else {
 					$expiry = $user['expiry'];
+					echo "Date: " .strtotime($date) . ", expiry: " . strtotime($expiry);
+					return;
 					if (strtotime($date) >= strtotime($expiry)) {
 						echo json_encode(array(
 							'response_code' => -3,

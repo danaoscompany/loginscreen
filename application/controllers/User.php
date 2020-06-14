@@ -10,24 +10,35 @@ class User extends CI_Controller {
 		$users = $this->db->query("SELECT * FROM `user` WHERE `phone`='" . $phone . "' AND `password`='" . $password . "'")->result_array();
 		if (sizeof($users) > 0) {
 			$user = $users[0];
-			if ($user['android_id'] != $androidID) {
-				echo json_encode(array(
-					'response_code' => -1
+			/*if ($user['android_id'] == NULL || $user['android_id'] == null || $user['android_id'] == '') {
+				$this->db->where('id', intval($user['id']));
+				$this->db->update('user', array(
+					'android_id' => $androidID
 				));
-			} else {
-				$expiry = $user['expiry'];
-				if (strtotime($date) >= strtotime($expiry)) {
+				echo json_encode(array(
+					'response_code' => 1,
+					'user_id' => intval($user['id'])
+				));
+			} else {*/
+				if ($user['android_id'] != $androidID) {
 					echo json_encode(array(
-						'response_code' => -3,
-						'user_id' => intval($user['id'])
+						'response_code' => -1
 					));
 				} else {
-					echo json_encode(array(
-						'response_code' => 1,
-						'user_id' => intval($user['id'])
-					));
+					$expiry = $user['expiry'];
+					if (strtotime($date) >= strtotime($expiry)) {
+						echo json_encode(array(
+							'response_code' => -3,
+							'user_id' => intval($user['id'])
+						));
+					} else {
+						echo json_encode(array(
+							'response_code' => 1,
+							'user_id' => intval($user['id'])
+						));
+					}
 				}
-			}
+			/*}*/
 		} else {
 			echo json_encode(array(
 				'response_code' => -2

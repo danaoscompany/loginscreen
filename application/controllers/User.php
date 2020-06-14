@@ -44,7 +44,6 @@ class User extends CI_Controller {
 				'response_code' => -2
 			));
 		}
-		header("Cache-Control: no-store, no-cache, must-revalidate,\"public, no-transform, must-revalidate\"");
 	}
 
 	public function login_with_google() {

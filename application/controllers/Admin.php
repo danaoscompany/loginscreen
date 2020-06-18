@@ -6,12 +6,28 @@ class Admin extends CI_Controller {
 		$email = $this->input->post('email');
 		$password = $this->input->post('password');
 		$expiry = $this->input->post('expiry');
+		
+		$superAdmins = $this->db->query("SELECT * FROM `superadmin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'")->result_array();
+		if (sizeof($superAdmins) > 0) {
+			$superAdmin = $superAdmins[0];
+			echo json_encode(array(
+				'response_code' => 1,
+				'user_id' => intval($superAdmin['id']),
+				'super_admin' => 1
+			));
+		} else {
+			echo json_encode(array(
+				'response_code' => -2
+			));
+		}
+		
 		$admins = $this->db->query("SELECT * FROM `admin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'")->result_array();
 		if (sizeof($admins) > 0) {
 			$admin = $admins[0];
 			echo json_encode(array(
 				'response_code' => 1,
-				'user_id' => intval($admin['id'])
+				'user_id' => intval($admin['id']),
+				'super_admin' => 0
 			));
 		} else {
 			echo json_encode(array(

@@ -38,6 +38,8 @@ class Admin extends CI_Controller {
 		$length = intval($this->input->post('length'));
 		$users = $this->db->query("SELECT * FROM `user` WHERE `admin_id`=" . $adminID . " ORDER BY `first_name` ASC LIMIT " . $start . "," . $length)->result_array();
 		for ($i=0; $i<sizeof($users); $i++) {
+			$row = $this->db->query("SELECT * FROM `user` WHERE `id`=" . $users[$i]['id'])->row_array();
+			$users[$i]['name'] = $row['first_name'] . " " . $row['last_name'];
 		}
 		echo json_encode($users);
 	}
@@ -47,6 +49,8 @@ class Admin extends CI_Controller {
 		$length = intval($this->input->post('length'));
 		$users = $this->db->query("SELECT * FROM `user` ORDER BY `first_name` ASC LIMIT " . $start . "," . $length)->result_array();
 		for ($i=0; $i<sizeof($users); $i++) {
+			$row = $this->db->query("SELECT * FROM `user` WHERE `id`=" . $users[$i]['id'])->row_array();
+			$users[$i]['name'] = $row['first_name'] . " " . $row['last_name'];
 		}
 		echo json_encode($users);
 	}

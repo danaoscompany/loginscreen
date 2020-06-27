@@ -51,7 +51,7 @@ class Admin extends CI_Controller {
 				$this->db->query("UPDATE `admin` SET `max_users`=" . $maxUsers . " WHERE `id`=" . $adminID);
 				echo json_encode(array('response_code' => 1, 'user_id' => $userID, 'max_users' => $maxUsers));
 			} else {
-				echo json_encode(array('response_code' => -2));
+				echo json_encode(array('response_code' => -1));
 				return;
 			}
 		}

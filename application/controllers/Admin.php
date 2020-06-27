@@ -3,10 +3,15 @@
 class Admin extends CI_Controller {
 
 	public function login() {
+		echo "This line 1\n";
 		$email = $this->input->post('email');
+		echo "This line 2\n";
 		$password = $this->input->post('password');
+		echo "This line 3\n";
 		$expiry = $this->input->post('expiry');
+		echo "This line 4\n";
 		$superAdmins = $this->db->query("SELECT * FROM `superadmin` WHERE `email`='" . $email . "' AND `password`='" . $password . "'")->result_array();
+		echo "This line 5\n";
 		if (sizeof($superAdmins) > 0) {
 			echo "This line 1\n";
 			$superAdmin = $superAdmins[0];

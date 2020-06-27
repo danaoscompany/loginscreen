@@ -34,7 +34,8 @@ class User extends CI_Controller {
 					} else {
 						echo json_encode(array(
 							'response_code' => 1,
-							'user_id' => intval($user['id'])
+							'user_id' => intval($user['id']),
+							'expiry' => $user['expiry']
 						));
 					}
 				}

@@ -44,11 +44,16 @@ class Admin extends CI_Controller {
 			return;
 		}
 		if ($maxUsers > 0) {
-			$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "')");
-			$userID = intval($this->db->insert_id());
-			$maxUsers -= $slotsUsed;
-			$this->db->query("UPDATE `admin` SET `max_users`=" . $maxUsers . " WHERE `id`=" . $adminID);
-			echo json_encode(array('response_code' => 1, 'user_id' => $userID, 'max_users' => $maxUsers));
+			if ($maxUsers >= $slotsUsed) {
+				$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "')");
+				$userID = intval($this->db->insert_id());
+				$maxUsers -= $slotsUsed;
+				$this->db->query("UPDATE `admin` SET `max_users`=" . $maxUsers . " WHERE `id`=" . $adminID);
+				echo json_encode(array('response_code' => 1, 'user_id' => $userID, 'max_users' => $maxUsers));
+			} else {
+				echo json_encode(array('response_code' => -2));
+				return;
+			}
 		}
 	}
 

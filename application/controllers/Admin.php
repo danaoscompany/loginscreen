@@ -42,8 +42,8 @@ class Admin extends CI_Controller {
 	public function add_user() {
 		$adminID = intval($this->input->post('admin_id'));
 		$phone = $this->input->post('phone');
-=		$password = $this->input->post('password');
-=		$androidID = $this->input->post('android_id');
+		$password = $this->input->post('password');
+		$androidID = $this->input->post('android_id');
 		$expiry = $this->input->post('expiry');
 		$maxUsers = intval($this->db->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users']);
 		if ($maxUsers <= 0) {

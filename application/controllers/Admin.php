@@ -33,12 +33,12 @@ class Admin extends CI_Controller {
 	}
 	
 	public function add_user() {
-		echo "Test";
 		$adminID = intval($this->db->post('admin_id'));
 		$phone = $this->db->post('phone');
 		$password = $this->db->post('password');
 		$androidID = $this->db->post('android_id');
 		$expiry = $this->db->post('expiry');
+		echo "SELECT * FROM `admin` WHERE `id`=" . $adminID;
 		$maxUsers = intval($this->db->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users']);
 		echo "Max users: " . $maxUsers;
 		if ($maxUsers <= 0) {

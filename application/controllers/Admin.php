@@ -33,6 +33,7 @@ class Admin extends CI_Controller {
 	}
 	
 	public function add_user() {
+		echo "This line 0\n";
 		$adminID = intval($this->db->post('admin_id'));
 		echo "SELECT * FROM `admin` WHERE `id`=" . $adminID . "\n";
 		$phone = $this->db->post('phone');

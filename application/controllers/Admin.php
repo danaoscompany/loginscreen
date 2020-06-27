@@ -31,6 +31,16 @@ class Admin extends CI_Controller {
 			}
 		}
 	}
+	
+	public function add_user() {
+		$adminID = intval($this->db->post('admin_id'));
+		$phone = $this->db->post('phone');
+		$password = $this->db->post('password');
+		$androidID = $this->db->post('android_id');
+		$expiry = $this->db->post('expiry');
+		$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "'");
+		echo $this->db->insert_id();
+	}
 
 	public function get_users() {
 		$adminID = intval($this->input->post('admin_id'));

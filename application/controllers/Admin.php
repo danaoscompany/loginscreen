@@ -39,14 +39,14 @@ class Admin extends CI_Controller {
 		$androidID = $this->db->post('android_id');
 		$expiry = $this->db->post('expiry');
 		$maxUsers = intval($this->db->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users']);
-		if ($maxUsers < 0) {
+		if ($maxUsers <= 0) {
 			echo json_encode(array('response_code' => -1, 'max_users' => $maxUsers));
 			return;
 		}
-		$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "'");
-		$userID = intval($this->db->insert_id());
-		$maxUsers--;
 		if ($maxUsers > 0) {
+			$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "'");
+			$userID = intval($this->db->insert_id());
+			$maxUsers--;
 			$this->db->query("UPDATE `admin` SET `max_users`=" . $maxUsers . " WHERE `id`=" . $adminID);
 			echo json_encode(array('response_code' => 1, 'user_id' => $userID, 'max_users' => $maxUsers));
 		}

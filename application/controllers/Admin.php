@@ -40,6 +40,10 @@ class Admin extends CI_Controller {
 		$expiry = $this->db->post('expiry');
 		$this->db->query("INSERT INTO `user` (`admin_id`, `phone`, `password`, `android_id`, `expiry`) VALUES (" . $adminID . ", '" . $phone . "', '" . $password . "', '" . $androidID . "', '" . $expiry . "'");
 		echo $this->db->insert_id();
+		$maxUsers = $this->db->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users'];
+		if ($maxUsers > 0) {
+			$this->db->query("UPDATE `admin` SET `max_users`=" . $maxUsers . " WHERE `id`=" . $adminID);
+		}
 	}
 
 	public function get_users() {

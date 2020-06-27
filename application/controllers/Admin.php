@@ -33,6 +33,7 @@ class Admin extends CI_Controller {
 	}
 	
 	public function add_user() {
+		echo "Test";
 		$adminID = intval($this->db->post('admin_id'));
 		$phone = $this->db->post('phone');
 		$password = $this->db->post('password');

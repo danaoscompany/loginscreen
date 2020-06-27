@@ -44,7 +44,7 @@ class Admin extends CI_Controller {
 		echo "This line 3\n";
 		$expiry = $this->input->post('expiry');
 		echo "This line 4\n";
-		$maxUsers = intval($this->input->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users']);
+		$maxUsers = intval($this->db->query("SELECT * FROM `admin` WHERE `id`=" . $adminID)->row_array()['max_users']);
 		echo "Max users: " . $maxUsers;
 		if ($maxUsers <= 0) {
 			echo json_encode(array('response_code' => -1, 'max_users' => $maxUsers));
